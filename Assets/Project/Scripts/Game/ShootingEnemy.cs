@@ -46,7 +46,7 @@ public class ShootingEnemy : Enemy
         //*** CHASING LOGIC
         //Chase player check
         chasingTimer -= Time.deltaTime;
-        if(chasingTimer <= 0)
+        if(chasingTimer <= 0 && Vector3.Distance(this.transform.position, player.transform.position) <= chasingDistance)
         {
             chasingTimer = chasingInterval;
 
