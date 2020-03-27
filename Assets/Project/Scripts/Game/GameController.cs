@@ -10,6 +10,7 @@ public class GameController : MonoBehaviour
 
     [Header("UI")]
     public Text ammoText;
+    public Text healthText;
 
     // Start is called before the first frame update
     void Start()
@@ -21,5 +22,6 @@ public class GameController : MonoBehaviour
     void Update()
     {
         ammoText.text = "Ammo: " + player.Ammo;
+        healthText.text = "Health: " + player.Health;
     }
 }

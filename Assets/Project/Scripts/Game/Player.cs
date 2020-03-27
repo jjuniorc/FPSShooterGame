@@ -13,6 +13,9 @@ public class Player : MonoBehaviour
 
     [Header("Gameplay")]
     public int initialAmmo = 12;
+    public int initalHealth = 100;
+    public float knockbackForce = 100;
+    public float hurtDuration = 0.5f;
     
     
     private int ammo;
@@ -24,10 +27,22 @@ public class Player : MonoBehaviour
         }
     }
 
+    private int health;
+    public int Health
+    {
+        get
+        {
+            return health;
+        }
+    }
+
+    private bool isHurt;
+
     // Start is called before the first frame update
     void Start()
     {
         ammo = initialAmmo;
+        health = initalHealth;
     }
 
     // Update is called once per frame
@@ -54,9 +69,11 @@ public class Player : MonoBehaviour
     void OnControllerColliderHit(ControllerColliderHit hit)
     {
         //Debug.Log(collision.gameObject.name);
-        Debug.Log(hit.collider.name);
+        //Debug.Log(hit.collider.name);
         //if(collision.gameObject.GetComponent<AmmoCrate>() != null)
-        if(hit.collider.GetComponent<AmmoCrate>() != null)
+
+        
+        if(hit.collider.GetComponent<AmmoCrate>() != null) //Collect ammo crate
         {
             //AmmoCrate ammoCrate = collision.gameObject.GetComponent<AmmoCrate>();
             AmmoCrate ammoCrate = hit.collider.GetComponent<AmmoCrate>();
@@ -64,5 +81,28 @@ public class Player : MonoBehaviour
 
             Destroy(ammoCrate.gameObject);
         }
+        else if(hit.collider.GetComponent<Enemy>() != null) //Touching enemies
+        {
+            if(isHurt == false)
+            {
+                Enemy enemy = hit.collider.GetComponent<Enemy>();
+                health -= enemy.damage;
+                isHurt = true;
+
+                //Perform the knockback effect
+                Vector3 hurtDirection = (this.transform.position - enemy.transform.position).normalized;
+                Vector3 knockbackDirection = (hurtDirection + Vector3.up).normalized;
+                GetComponent<ForceReceiver>().AddForce(knockbackDirection, knockbackForce);
+
+                StartCoroutine(HurtRoutine());
+            }
+        }
+    }
+
+    IEnumerator HurtRoutine()
+    {
+        yield return new WaitForSeconds(hurtDuration);
+
+        isHurt = false;
     }
 }
