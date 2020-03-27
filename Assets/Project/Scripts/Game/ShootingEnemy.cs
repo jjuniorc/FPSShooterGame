@@ -25,10 +25,10 @@ public class ShootingEnemy : Enemy
         //Only shooting if timer allows and is closer enough to the player
         if(shootingTimer <= 0 && Vector3.Distance(this.transform.position, player.transform.position) <= shootingDistance) 
         {
-            Debug.Log("Time to shoot");
+            //Debug.Log("Time to shoot");
             shootingTimer = shootingInterval;
 
-            GameObject bullet = ObjectPoolingManager.Instance.GetBullet();
+            GameObject bullet = ObjectPoolingManager.Instance.GetBullet(false);
             bullet.transform.position = this.transform.position;
             bullet.transform.forward = (player.transform.position - this.transform.position).normalized;
         }

@@ -57,7 +57,7 @@ public class Player : MonoBehaviour
                 //GameObject bulletObject = Instantiate(bulletPrefab);
                 //bulletObject.transform.position = playerCamera.transform.position + (playerCamera.transform.forward * 3);
                 //bulletObject.transform.forward = playerCamera.transform.forward;
-                GameObject bulletObject = ObjectPoolingManager.Instance.GetBullet();
+                GameObject bulletObject = ObjectPoolingManager.Instance.GetBullet(true);
                 bulletObject.transform.position = playerGun.transform.position + (playerGun.transform.forward);
                 bulletObject.transform.forward = playerGun.transform.forward;
             }
@@ -66,31 +66,52 @@ public class Player : MonoBehaviour
 
     //Check for collisions
     //void OnCollisionEnter(Collision collision)
-    void OnControllerColliderHit(ControllerColliderHit hit)
+    //void OnControllerColliderHit(ControllerColliderHit hit)
+    void OnTriggerEnter(Collider otherCollider)
     {
         //Debug.Log(collision.gameObject.name);
         //Debug.Log(hit.collider.name);
         //if(collision.gameObject.GetComponent<AmmoCrate>() != null)
 
         
-        if(hit.collider.GetComponent<AmmoCrate>() != null) //Collect ammo crate
+        if(otherCollider.GetComponent<AmmoCrate>() != null) //Collect ammo crate
         {
             //AmmoCrate ammoCrate = collision.gameObject.GetComponent<AmmoCrate>();
-            AmmoCrate ammoCrate = hit.collider.GetComponent<AmmoCrate>();
+            AmmoCrate ammoCrate = otherCollider.GetComponent<AmmoCrate>();
             ammo += ammoCrate.ammo;
 
             Destroy(ammoCrate.gameObject);
         }
-        else if(hit.collider.GetComponent<Enemy>() != null) //Touching enemies
-        {
-            if(isHurt == false)
-            {
-                Enemy enemy = hit.collider.GetComponent<Enemy>();
-                health -= enemy.damage;
-                isHurt = true;
 
+        if(isHurt == false)
+        {
+            GameObject hazard = null;
+
+            if(otherCollider.GetComponent<Enemy>() != null) //Touching enemies
+            {
+                Enemy enemy = otherCollider.GetComponent<Enemy>();
+                hazard = enemy.gameObject;
+
+                health -= enemy.damage;
+            }
+            else if(otherCollider.GetComponent<Bullet>() != null) //Bullet 
+            {
+                Bullet bullet = otherCollider.GetComponent<Bullet>();
+
+                if(bullet.ShotByPlayer == false) //From Enemy
+                {
+                    hazard = bullet.gameObject;
+
+                    health -= bullet.damage;
+                }
+            }
+
+            if(hazard != null)
+            {
+                isHurt = true;
+                
                 //Perform the knockback effect
-                Vector3 hurtDirection = (this.transform.position - enemy.transform.position).normalized;
+                Vector3 hurtDirection = (this.transform.position - hazard.transform.position).normalized;
                 Vector3 knockbackDirection = (hurtDirection + Vector3.up).normalized;
                 GetComponent<ForceReceiver>().AddForce(knockbackDirection, knockbackForce);
 

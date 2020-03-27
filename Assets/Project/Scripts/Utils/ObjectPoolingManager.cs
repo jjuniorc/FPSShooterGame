@@ -32,19 +32,21 @@ public class ObjectPoolingManager : MonoBehaviour
         }
     }
 
-    public GameObject GetBullet()
+    public GameObject GetBullet(bool shotByPlayer)
     {
         foreach (GameObject bullet in bullets)
         {
             if(bullet.activeInHierarchy == false)
             {
                 bullet.SetActive(true);
+                bullet.GetComponent<Bullet>().ShotByPlayer = shotByPlayer;
                 return bullet;
             }
         }
 
         //All bullets in use, create a new just for this moment
         GameObject prefabInstance = GetNewBullet(false);
+        prefabInstance.GetComponent<Bullet>().ShotByPlayer = shotByPlayer;
         return prefabInstance;
     }
 
