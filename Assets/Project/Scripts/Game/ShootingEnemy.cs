@@ -6,6 +6,7 @@ public class ShootingEnemy : Enemy
 {
     public float shootingInterval = 4f;
     public float shootingDistance = 10f;
+    public float shootSpeed = 30;
     
     private Player player;
     private float shootingTimer;
@@ -28,7 +29,7 @@ public class ShootingEnemy : Enemy
             //Debug.Log("Time to shoot");
             shootingTimer = shootingInterval;
 
-            GameObject bullet = ObjectPoolingManager.Instance.GetBullet(false);
+            GameObject bullet = ObjectPoolingManager.Instance.GetBullet(false, shootSpeed);
             bullet.transform.position = this.transform.position;
             bullet.transform.forward = (player.transform.position - this.transform.position).normalized;
         }

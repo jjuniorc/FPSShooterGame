@@ -18,4 +18,25 @@ public class Enemy : MonoBehaviour
     {
         
     }
+
+    void OnTriggerEnter(Collider otherCollider)
+    {
+        if(otherCollider.GetComponent<Bullet>() != null)
+        {
+            Bullet bullet = otherCollider.GetComponent<Bullet>();
+
+            if(bullet.ShotByPlayer == true)
+            {
+                health -= bullet.damage;
+
+                bullet.gameObject.SetActive(false);
+
+                if(health <= 0)
+                {
+                    Destroy(this.gameObject);
+                }
+            }
+
+        }
+    }
 }

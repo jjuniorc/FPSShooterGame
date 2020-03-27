@@ -16,6 +16,7 @@ public class Player : MonoBehaviour
     public int initalHealth = 100;
     public float knockbackForce = 100;
     public float hurtDuration = 0.5f;
+    public float shootSpeed = 100;
     
     
     private int ammo;
@@ -57,7 +58,7 @@ public class Player : MonoBehaviour
                 //GameObject bulletObject = Instantiate(bulletPrefab);
                 //bulletObject.transform.position = playerCamera.transform.position + (playerCamera.transform.forward * 3);
                 //bulletObject.transform.forward = playerCamera.transform.forward;
-                GameObject bulletObject = ObjectPoolingManager.Instance.GetBullet(true);
+                GameObject bulletObject = ObjectPoolingManager.Instance.GetBullet(true, shootSpeed);
                 bulletObject.transform.position = playerGun.transform.position + (playerGun.transform.forward);
                 bulletObject.transform.forward = playerGun.transform.forward;
             }
@@ -103,6 +104,8 @@ public class Player : MonoBehaviour
                     hazard = bullet.gameObject;
 
                     health -= bullet.damage;
+
+                    bullet.gameObject.SetActive(false);
                 }
             }
 

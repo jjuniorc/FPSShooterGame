@@ -32,7 +32,7 @@ public class ObjectPoolingManager : MonoBehaviour
         }
     }
 
-    public GameObject GetBullet(bool shotByPlayer)
+    public GameObject GetBullet(bool shotByPlayer, float shootSpeed)
     {
         foreach (GameObject bullet in bullets)
         {
@@ -40,6 +40,7 @@ public class ObjectPoolingManager : MonoBehaviour
             {
                 bullet.SetActive(true);
                 bullet.GetComponent<Bullet>().ShotByPlayer = shotByPlayer;
+                bullet.GetComponent<Bullet>().Speed = shootSpeed;
                 return bullet;
             }
         }
@@ -47,6 +48,7 @@ public class ObjectPoolingManager : MonoBehaviour
         //All bullets in use, create a new just for this moment
         GameObject prefabInstance = GetNewBullet(false);
         prefabInstance.GetComponent<Bullet>().ShotByPlayer = shotByPlayer;
+        prefabInstance.GetComponent<Bullet>().Speed = shootSpeed;
         return prefabInstance;
     }
 

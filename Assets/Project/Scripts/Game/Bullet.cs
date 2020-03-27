@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
-    public float speed = 300f;
     public float lifeDuration = 2f;
     public int damage = 5;
 
@@ -20,6 +19,19 @@ public class Bullet : MonoBehaviour
         set
         {
             shotByPlayer = value;
+        }
+    }
+
+    public float speed = 300f;
+    public float Speed
+    {
+        get
+        {
+            return speed;
+        }
+        set
+        {
+            speed = value;
         }
     }
 
