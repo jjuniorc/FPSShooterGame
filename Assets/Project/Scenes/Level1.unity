@@ -120,7 +120,7 @@ NavMeshSettings:
     accuratePlacement: 0
     debug:
       m_Flags: 0
-  m_NavMeshData: {fileID: 0}
+  m_NavMeshData: {fileID: 23800000, guid: f4717110a1cb4cf7c8836e057c1e2d38, type: 2}
 --- !u!1 &10999671
 GameObject:
   m_ObjectHideFlags: 0
@@ -687,6 +687,7 @@ GameObject:
   - component: {fileID: 1227442420}
   - component: {fileID: 1227442421}
   - component: {fileID: 1227442422}
+  - component: {fileID: 1227442423}
   m_Layer: 0
   m_Name: ShootingEnemy
   m_TagString: Untagged
@@ -724,8 +725,10 @@ MonoBehaviour:
   health: 5
   damage: 5
   shootingInterval: 4
-  shootingDistance: 10
+  shootingDistance: 6
   shootSpeed: 5
+  chasingInterval: 2
+  chasingDistance: 12
 --- !u!136 &1227442421
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -756,6 +759,28 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!195 &1227442423
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1227442418}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.5
+  m_Speed: 3.5
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 2
+  m_BaseOffset: 1
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
 --- !u!1 &1239855244 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7972550726395392538, guid: a71a2851558171d49b4cff23d8b69b93,
@@ -907,7 +932,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!65 &1889031975
 BoxCollider:
