@@ -726,7 +726,7 @@ MonoBehaviour:
   damage: 5
   shootingInterval: 4
   shootingDistance: 6
-  shootSpeed: 5
+  shootSpeed: 10
   chasingInterval: 2
   chasingDistance: 12
 --- !u!136 &1227442421
@@ -1003,7 +1003,7 @@ Transform:
   m_GameObject: {fileID: 1889031974}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 20, y: 0.1, z: 20}
+  m_LocalScale: {x: 60, y: 0.1, z: 60}
   m_Children: []
   m_Father: {fileID: 1046932089}
   m_RootOrder: 1
@@ -1188,6 +1188,11 @@ PrefabInstance:
         type: 3}
       propertyPath: knockbackForce
       value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 7972550727570336869, guid: a71a2851558171d49b4cff23d8b69b93,
+        type: 3}
+      propertyPath: initialAmmo
+      value: 12
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a71a2851558171d49b4cff23d8b69b93, type: 3}
