@@ -7,6 +7,16 @@ public class Enemy : MonoBehaviour
     public int health = 5;
     public int damage = 5;
 
+    private bool killed = false;
+    public bool Killed
+    {
+        get
+        {
+            return killed;
+        }
+    }
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -33,10 +43,20 @@ public class Enemy : MonoBehaviour
 
                 if(health <= 0)
                 {
-                    Destroy(this.gameObject);
+                    if(killed == false)
+                    {
+                        killed = true;
+                        OnKill();
+                        //Destroy(this.gameObject);
+                    }
                 }
             }
 
         }
+    }
+
+    protected virtual void OnKill()
+    {
+
     }
 }

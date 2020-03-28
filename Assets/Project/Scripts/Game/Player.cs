@@ -91,9 +91,11 @@ public class Player : MonoBehaviour
             if(otherCollider.GetComponent<Enemy>() != null) //Touching enemies
             {
                 Enemy enemy = otherCollider.GetComponent<Enemy>();
-                hazard = enemy.gameObject;
-
-                health -= enemy.damage;
+                if(enemy.Killed == false)
+                {
+                    hazard = enemy.gameObject;
+                    health -= enemy.damage;
+                }
             }
             else if(otherCollider.GetComponent<Bullet>() != null) //Bullet 
             {

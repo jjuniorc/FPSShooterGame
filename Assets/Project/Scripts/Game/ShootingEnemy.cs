@@ -53,4 +53,15 @@ public class ShootingEnemy : Enemy
             agent.SetDestination(player.transform.position); //Enemy chase the player
         }
     }
+
+    protected override void OnKill()
+    {
+        base.OnKill();
+
+        agent.enabled = false; //Disable Nav Mesh
+        this.enabled = false; //Disable ShootingEnemy
+
+        //Down to the floor
+        this.transform.localEulerAngles  = new Vector3(10, this.transform.localEulerAngles.y, this.transform.localEulerAngles.z);
+    }
 }
