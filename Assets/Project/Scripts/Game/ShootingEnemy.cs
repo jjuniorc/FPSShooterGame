@@ -33,6 +33,9 @@ public class ShootingEnemy : Enemy
         {
             //Stop enemy, don't need to keep chasing
             StopShootingEnemyMovement();
+
+            //Stop Physics for Enemy: If isKinematic is enabled, Forces, collisions or joints will not affect the rigidbody anymore
+            GetComponent<Rigidbody>().isKinematic = true;
         }
 
         //*** SHOOTING LOGIC

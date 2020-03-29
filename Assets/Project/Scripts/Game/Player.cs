@@ -82,7 +82,7 @@ public class Player : MonoBehaviour
     void OnControllerColliderHit(ControllerColliderHit hit)
     {
         //Debug.Log(collision.gameObject.name);
-        Debug.Log(hit.collider.name);
+        //Debug.Log(hit.collider.name);
         //if(collision.gameObject.GetComponent<AmmoCrate>() != null)
         if(hit.collider.GetComponent<AmmoCrate>() != null)
         {
@@ -177,6 +177,7 @@ public class Player : MonoBehaviour
 
     private void OnKill()
     {
-
+        GetComponent<CharacterController>().enabled = false;
+        GetComponent<UnityStandardAssets.Characters.FirstPerson.FirstPersonController>().enabled = false;
     }
 }
