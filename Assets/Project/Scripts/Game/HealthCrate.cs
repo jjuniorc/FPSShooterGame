@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AmmoCrate : MonoBehaviour
+public class HealthCrate : MonoBehaviour
 {
 
     [Header("Visuals")]
@@ -10,7 +10,7 @@ public class AmmoCrate : MonoBehaviour
     public float rotationSpeed = 180f;
 
     [Header("Gameplay")]
-    public int ammo = 12;
+    public int health = 50;
 
     // Start is called before the first frame update
     void Start()

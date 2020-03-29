@@ -92,6 +92,15 @@ public class Player : MonoBehaviour
 
             Destroy(ammoCrate.gameObject);
         }
+
+        if(hit.collider.GetComponent<HealthCrate>() != null)
+        {
+            //AmmoCrate ammoCrate = collision.gameObject.GetComponent<AmmoCrate>();
+            HealthCrate healthCrate = hit.collider.GetComponent<HealthCrate>();
+            health += healthCrate.health;
+
+            Destroy(healthCrate.gameObject);
+        }
     }
 
     //Check for collisions by TriggerEnter

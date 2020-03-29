@@ -16,7 +16,6 @@ public class Enemy : MonoBehaviour
         }
     }
 
-
     // Start is called before the first frame update
     void Start()
     {
@@ -28,6 +27,33 @@ public class Enemy : MonoBehaviour
     {
         
     }
+
+    /*
+    void OnControllerColliderHit(ControllerColliderHit hit)
+    {
+        if(hit.collider.GetComponent<Bullet>() != null)
+        {
+            Bullet bullet = hit.collider.GetComponent<Bullet>();
+
+            if(bullet.ShotByPlayer == true)
+            {
+                health -= bullet.damage;
+
+                bullet.gameObject.SetActive(false);
+
+                if(health <= 0)
+                {
+                    if(killed == false)
+                    {
+                        killed = true;
+                        OnKill();
+                        //Destroy(this.gameObject);
+                    }
+                }
+            }
+        }
+    }
+    */
 
     void OnTriggerEnter(Collider otherCollider)
     {
@@ -51,7 +77,6 @@ public class Enemy : MonoBehaviour
                     }
                 }
             }
-
         }
     }
 
