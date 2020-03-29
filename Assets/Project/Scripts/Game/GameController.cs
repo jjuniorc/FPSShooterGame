@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class GameController : MonoBehaviour
 {
@@ -14,6 +15,10 @@ public class GameController : MonoBehaviour
     public Text healthText;
     public Text enemyText;
     public Text infoText;
+
+    private float resetTimer = 3f; //Seconds before go back to menu
+
+    private bool gameOver = false;
 
     // Start is called before the first frame update
     void Start()
@@ -39,14 +44,25 @@ public class GameController : MonoBehaviour
 
         if(aliveEnemies == 0)
         {
+            gameOver = true;
             infoText.gameObject.SetActive(true);
             infoText.text = "You win!\nGood Job!";
         }
 
         if(player.Killed == true)
         {
+            gameOver = true;
             infoText.gameObject.SetActive(true);
             infoText.text = "You lose!\nTry Again!";
+        }
+
+        if(gameOver == true)
+        {
+            resetTimer -= Time.deltaTime;
+            if(resetTimer <= 0)
+            {
+                SceneManager.LoadScene("Menu");
+            }
         }
 
     }
