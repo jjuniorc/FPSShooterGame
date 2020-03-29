@@ -43,5 +43,11 @@ public class GameController : MonoBehaviour
             infoText.text = "You win!\nGood Job!";
         }
 
+        if(player.Killed == true)
+        {
+            infoText.gameObject.SetActive(true);
+            infoText.text = "You lose!\nTry Again!";
+        }
+
     }
 }

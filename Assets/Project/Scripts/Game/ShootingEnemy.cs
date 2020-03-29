@@ -29,6 +29,12 @@ public class ShootingEnemy : Enemy
     // Update is called once per frame
     void Update()
     {
+        if(player.Killed == true)
+        {
+            //Stop enemy, don't need to keep chasing
+            StopShootingEnemyMovement();
+        }
+
         //*** SHOOTING LOGIC
         shootingTimer -= Time.deltaTime;
 
@@ -54,12 +60,18 @@ public class ShootingEnemy : Enemy
         }
     }
 
+    private void StopShootingEnemyMovement()
+    {
+        //agent.Stop(); //Stop Nav Mesh
+        agent.enabled = false; //Disable Nav Mesh
+        this.enabled = false; //Disable ShootingEnemy
+    }
+
     protected override void OnKill()
     {
         base.OnKill();
 
-        agent.enabled = false; //Disable Nav Mesh
-        this.enabled = false; //Disable ShootingEnemy
+        StopShootingEnemyMovement();
 
         //Down to the floor
         this.transform.localEulerAngles  = new Vector3(10, this.transform.localEulerAngles.y, this.transform.localEulerAngles.z);
