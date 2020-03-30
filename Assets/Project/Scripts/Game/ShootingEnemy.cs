@@ -5,6 +5,7 @@ using UnityEngine.AI;
 
 public class ShootingEnemy : Enemy
 {
+    public AudioSource deathSound;
     public float shootingInterval = 4f;
     public float shootingDistance = 10f;
     public float shootSpeed = 30;
@@ -48,8 +49,13 @@ public class ShootingEnemy : Enemy
             shootingTimer = shootingInterval;
 
             GameObject bullet = ObjectPoolingManager.Instance.GetBullet(false, shootSpeed);
-            bullet.transform.position = this.transform.position;
+
+            Vector3 enemyBulletPosition = this.transform.position;
+            //enemyBulletPosition.x += 2f;
+            //enemyBulletPosition.z += 1f;
+            bullet.transform.position = enemyBulletPosition;
             bullet.transform.forward = (player.transform.position - this.transform.position).normalized;
+
         }
 
         //*** CHASING LOGIC
@@ -73,6 +79,8 @@ public class ShootingEnemy : Enemy
     protected override void OnKill()
     {
         base.OnKill();
+
+        deathSound.Play();
 
         StopShootingEnemyMovement();
 
