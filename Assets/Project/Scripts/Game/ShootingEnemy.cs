@@ -30,50 +30,63 @@ public class ShootingEnemy : Enemy
     // Update is called once per frame
     void Update()
     {
-        if(player.Killed == true)
+        Debug.Log("UPUP");
+        if(this.Killed == true)
         {
-            //Stop enemy, don't need to keep chasing
-            StopShootingEnemyMovement();
-
-            //Stop Physics for Enemy: If isKinematic is enabled, Forces, collisions or joints will not affect the rigidbody anymore
-            GetComponent<Rigidbody>().isKinematic = true;
+            this.disappearDeadTimer -= Time.deltaTime;
+            if(this.disappearDeadTimer <= 0)
+            {
+                Destroy(this.gameObject);
+            }
         }
-
-        //*** SHOOTING LOGIC
-        shootingTimer -= Time.deltaTime;
-
-        //Only shooting if timer allows and is closer enough to the player
-        if(shootingTimer <= 0 && Vector3.Distance(this.transform.position, player.transform.position) <= shootingDistance) 
+        else
         {
-            //Debug.Log("Time to shoot");
-            shootingTimer = shootingInterval;
+            if(player.Killed == true)
+            {
+                //Stop enemy, don't need to keep chasing
+                StopShootingEnemyMovement();
 
-            GameObject bullet = ObjectPoolingManager.Instance.GetBullet(false, shootSpeed);
+                //Stop Physics for Enemy: If isKinematic is enabled, Forces, collisions or joints will not affect the rigidbody anymore
+                GetComponent<Rigidbody>().isKinematic = true;
+            }
 
-            Vector3 enemyBulletPosition = this.transform.position;
-            //enemyBulletPosition.x += 2f;
-            //enemyBulletPosition.z += 1f;
-            bullet.transform.position = enemyBulletPosition;
-            bullet.transform.forward = (player.transform.position - this.transform.position).normalized;
+            //*** SHOOTING LOGIC
+            shootingTimer -= Time.deltaTime;
 
-        }
+            //Only shooting if timer allows and is closer enough to the player
+            if(shootingTimer <= 0 && Vector3.Distance(this.transform.position, player.transform.position) <= shootingDistance) 
+            {
+                //Debug.Log("Time to shoot");
+                shootingTimer = shootingInterval;
 
-        //*** CHASING LOGIC
-        //Chase player check
-        chasingTimer -= Time.deltaTime;
-        if(chasingTimer <= 0 && Vector3.Distance(this.transform.position, player.transform.position) <= chasingDistance)
-        {
-            chasingTimer = chasingInterval;
+                GameObject bullet = ObjectPoolingManager.Instance.GetBullet(false, shootSpeed);
 
-            agent.SetDestination(player.transform.position); //Enemy chase the player
+                Vector3 enemyBulletPosition = this.transform.position;
+                //enemyBulletPosition.x += 2f;
+                //enemyBulletPosition.z += 1f;
+                bullet.transform.position = enemyBulletPosition;
+                bullet.transform.forward = (player.transform.position - this.transform.position).normalized;
+
+            }
+
+            //*** CHASING LOGIC
+            //Chase player check
+            chasingTimer -= Time.deltaTime;
+            if(chasingTimer <= 0 && Vector3.Distance(this.transform.position, player.transform.position) <= chasingDistance)
+            {
+                chasingTimer = chasingInterval;
+
+                agent.SetDestination(player.transform.position); //Enemy chase the player
+            }
+
         }
     }
 
     private void StopShootingEnemyMovement()
     {
-        //agent.Stop(); //Stop Nav Mesh
+        agent.Stop(); //Stop Nav Mesh
         agent.enabled = false; //Disable Nav Mesh
-        this.enabled = false; //Disable ShootingEnemy
+        //this.enabled = false; //Disable ShootingEnemy
     }
 
     protected override void OnKill()

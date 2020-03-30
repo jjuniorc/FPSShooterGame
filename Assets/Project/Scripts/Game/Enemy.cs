@@ -14,7 +14,13 @@ public class Enemy : MonoBehaviour
         {
             return killed;
         }
+        set
+        {
+            killed = value;
+        }
     }
+
+    public float disappearDeadTimer = 3f; //Seconds to disappear after dead
 
     // Start is called before the first frame update
     void Start()
@@ -25,7 +31,7 @@ public class Enemy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     /*
@@ -69,12 +75,7 @@ public class Enemy : MonoBehaviour
 
                 if(health <= 0)
                 {
-                    if(killed == false)
-                    {
-                        killed = true;
-                        OnKill();
-                        //Destroy(this.gameObject);
-                    }
+                    OnKill();
                 }
             }
         }
@@ -82,6 +83,10 @@ public class Enemy : MonoBehaviour
 
     protected virtual void OnKill()
     {
-
+        if(killed == false)
+        {
+            killed = true;
+            //Destroy(this.gameObject);
+        }
     }
 }
