@@ -143,6 +143,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 5
   damage: 5
+  disappearDeadTimer: 3
   deathSound: {fileID: 5285962735124422448}
   shootingInterval: 4
   shootingDistance: 6
